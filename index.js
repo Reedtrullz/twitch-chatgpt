@@ -16,7 +16,6 @@ console.log("GPT_MODE is " + GPT_MODE)
 console.log("History length is " + process.env.HISTORY_LENGTH)
 console.log("OpenAI API Key:" + process.env.OPENAI_API_KEY)
 
-app.use(express.urlencoded({extended: true, limit: '1mb', parameterLimit: 1000000, type: 'application/x-www-form-urlencoded; charset=utf-8'}))
 app.use(express.json({ limit: '1mb', type: 'application/json; charset=utf-8' }))
 
 app.all('/', (req, res) => {
