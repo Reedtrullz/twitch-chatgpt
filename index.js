@@ -25,7 +25,7 @@ app.all('/', (req, res) => {
 
 if (process.env.GPT_MODE === "CHAT"){
 
-  fs.readFile("./file_context.txt", 'utf8', function(err, data) {
+  fs.readFile("./file_context.txt", 'latin1', function(err, data) {
     if (err) throw err;
     console.log("Reading context file and adding it as system level message for the agent.")
     messages[0].content = data;
@@ -33,7 +33,7 @@ if (process.env.GPT_MODE === "CHAT"){
 
 } else {
 
-  fs.readFile("./file_context.txt", 'utf8', function(err, data) {
+  fs.readFile("./file_context.txt", 'latin1', function(err, data) {
     if (err) throw err;
     console.log("Reading context file and adding it in front of user prompts:")
     file_context = data;
