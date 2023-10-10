@@ -76,12 +76,13 @@ app.get('/gpt/:text', async (req, res) => {
     });
 
     const openai = new OpenAIApi(configuration);
+    const now = new Date();
+        
 
     if (GPT_MODE === "CHAT"){
         //CHAT MODE EXECUTION
 
         //Add user message to  messages
-        const now = new Date();
         messages.push({role: "user", content: text, timestamp: now})
         //Check if message history is exceeded
         console.log("Conversations in History: " + ((messages.length / 2) -1) + "/" + process.env.HISTORY_LENGTH)
