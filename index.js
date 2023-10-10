@@ -15,7 +15,7 @@ if (!GPT_MODE) {
     GPT_MODE = "CHAT"
 }
 if (!HISTORY_LENGTH) {
-    HISTORY_LENGTH = 5
+    HISTORY_LENGTH = 3
 }
 if (!OPENAI_API_KEY) {
     console.log("No OPENAI_API_KEY found. Please set it as environment variable.")
@@ -25,12 +25,12 @@ if (!MODEL_NAME) {
 }
 
 // init global variables
-const MAX_LENGTH = 250
-let file_context = "You are a helpful Twitch Chatbot."
+const MAX_LENGTH = 220
+let file_context = "You are a funny Twitch Chatbot."
 let last_user_message = ""
 
 const messages = [
-    {role: "system", content: "You are a helpful Twitch Chatbot."}
+    {role: "system", content: "You are a funny Twitch Chatbot."}
 ];
 
 console.log("GPT_MODE is " + GPT_MODE)
@@ -112,7 +112,7 @@ app.get('/gpt/:text', async (req, res) => {
             //Check for Twitch max. chat message length limit and slice if needed
             let sliced_agent_response = ""
             if(agent_response.length > MAX_LENGTH){
-                console.log("Agent answer exceeds twitch chat limit. Slicing to first 250 characters.")
+                console.log("Agent answer exceeds twitch chat limit. Slicing to first 220 characters.")
                 sliced_agent_response = agent_response.slice(0, MAX_LENGTH)
                 // save the other part of the message for the next response
                 last_user_message = agent_response.slice(MAX_LENGTH)
@@ -146,7 +146,7 @@ app.get('/gpt/:text', async (req, res) => {
             //Check for Twitch max. chat message length limit and slice if needed
             let sliced_agent_response = ""
             if(agent_response.length > MAX_LENGTH){
-                console.log("Agent answer exceeds twitch chat limit. Slicing to first 250 characters.")
+                console.log("Agent answer exceeds twitch chat limit. Slicing to first 220 characters.")
                 sliced_agent_response = agent_response.slice(0, MAX_LENGTH)
                 // save the other part of the message for the next response
                 last_user_message = agent_response.slice(MAX_LENGTH)
@@ -169,7 +169,7 @@ app.all('/continue/', (req, res) => {
     if (last_user_message.length > 0) {
         let new_user_message = last_user_message
         if (last_user_message.length > MAX_LENGTH){
-            console.log("Agent answer exceeds twitch chat limit. Slicing to first 250 characters.")
+            console.log("Agent answer exceeds twitch chat limit. Slicing to first 220 characters.")
             new_user_message = last_user_message.slice(0, MAX_LENGTH)
         }
         // save the other part of the message for the next response
