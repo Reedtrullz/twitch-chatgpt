@@ -81,7 +81,8 @@ app.get('/gpt/:text', async (req, res) => {
         //CHAT MODE EXECUTION
 
         //Add user message to  messages
-        messages.push({role: "user", content: text})
+        const now = new Date();
+        messages.push({role: "user", content: text, timestamp: now.toISOString()})messages.push({role: "user", content: text})
         //Check if message history is exceeded
         console.log("Conversations in History: " + ((messages.length / 2) -1) + "/" + process.env.HISTORY_LENGTH)
         if(messages.length > ((process.env.HISTORY_LENGTH * 2) + 1)) {
