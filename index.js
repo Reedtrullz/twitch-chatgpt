@@ -24,6 +24,21 @@ if (!MODEL_NAME) {
     MODEL_NAME = "gpt-4"
 }
 
+// Get the current date and time
+const now = new Date();
+
+// Format the date and time as a string
+const dateString = now.toLocaleString();
+
+// Read the contents of the file
+let fileContents = fs.readFileSync('file_context.txt', 'utf-8');
+
+// Replace the date in the file contents
+fileContents = fileContents.replace(/(The date is : ).*/, `$1${dateString}`);
+
+// Write the modified contents back to the file
+fs.writeFileSync('file_context.txt', fileContents);
+
 // init global variables
 const MAX_LENGTH = 220
 let file_context = "You are a funny Twitch Chatbot."
