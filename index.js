@@ -21,7 +21,7 @@ if (!OPENAI_API_KEY) {
     console.log("No OPENAI_API_KEY found. Please set it as environment variable.")
 }
 if (!MODEL_NAME) {
-    MODEL_NAME = "gpt-4"
+    MODEL_NAME = "gpt-3.5-turbo"
 }
 
 // init global variables
@@ -97,7 +97,7 @@ app.get('/gpt/:text', async (req, res) => {
             model: MODEL_NAME,
             messages: messages,
             temperature: 0.7,
-            max_tokens: 256,
+            max_tokens: 512,
             top_p: 0.95,
             frequency_penalty: 0,
             presence_penalty: 0,
@@ -112,7 +112,7 @@ app.get('/gpt/:text', async (req, res) => {
             //Check for Twitch max. chat message length limit and slice if needed
             let sliced_agent_response = ""
             if(agent_response.length > MAX_LENGTH){
-                console.log("Agent answer exceeds twitch chat limit. Slicing to first 220 characters.")
+                console.log("Agent answer exceeds twitch chat limit. Slicing to first 250 characters.")
                 sliced_agent_response = agent_response.slice(0, MAX_LENGTH)
                 // save the other part of the message for the next response
                 last_user_message = agent_response.slice(MAX_LENGTH)
@@ -146,7 +146,7 @@ app.get('/gpt/:text', async (req, res) => {
             //Check for Twitch max. chat message length limit and slice if needed
             let sliced_agent_response = ""
             if(agent_response.length > MAX_LENGTH){
-                console.log("Agent answer exceeds twitch chat limit. Slicing to first 220 characters.")
+                console.log("Agent answer exceeds twitch chat limit. Slicing to first 250 characters.")
                 sliced_agent_response = agent_response.slice(0, MAX_LENGTH)
                 // save the other part of the message for the next response
                 last_user_message = agent_response.slice(MAX_LENGTH)
@@ -169,7 +169,7 @@ app.all('/continue/', (req, res) => {
     if (last_user_message.length > 0) {
         let new_user_message = last_user_message
         if (last_user_message.length > MAX_LENGTH){
-            console.log("Agent answer exceeds twitch chat limit. Slicing to first 220 characters.")
+            console.log("Agent answer exceeds twitch chat limit. Slicing to first 250 characters.")
             new_user_message = last_user_message.slice(0, MAX_LENGTH)
         }
         // save the other part of the message for the next response
